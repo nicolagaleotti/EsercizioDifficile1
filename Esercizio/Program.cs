@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Numerics;
 
 namespace Esercizio
 {
@@ -12,12 +13,13 @@ namespace Esercizio
                 string filein = "input.txt";
                 string fileout = "output.txt";
                 string numeri = " ";
-                string lunghezza = "";
                 int n;
-                int x;
+                BigInteger x = new BigInteger();
                 int i = 0;
                 char stop;
-                int c;
+                int c = 0;
+                int j = 0;
+                int d = 0;
                 string numero ="";
 
                 if (File.Exists(filein))
@@ -28,28 +30,42 @@ namespace Esercizio
                     }
                 }
 
+                using (StreamWriter writer = new StreamWriter(fileout))
+
                 do
                 {
-                    stop = numeri[i];
-                    i = i + 1;
-                } while (stop != '1');
+                    string lunghezza = "";
+                    i = j;
+                    d = 0;
+                    numero = "";
+                    do
+                    {
+                        stop = numeri[i];
+                        i++;
+                        d++;
+                    } while (stop != '1');
 
-                for (c = i; c < i + i - 1; c++)
-                {
-                    lunghezza += int.Parse(numeri[c].ToString());
-                }
-                Console.WriteLine(lunghezza);
+                    for (c = i; c < i + d - 1; c++)
+                    {
+                        lunghezza += int.Parse(numeri[c].ToString());
+                    }
 
-                n = int.Parse(lunghezza); 
+                    n = int.Parse(lunghezza);
 
-                for (int j = c; j < c + n; j++)
-                {
-                    numero += numeri[j].ToString();
-                }
+                    for (j = c; j < c + n; j++)
+                    {
+                        numero += numeri[j].ToString();
+                    }
 
-                x = int.Parse(numero);
+                    x = BigInteger.Parse(numero);
 
-                Console.WriteLine(x);
+                    Console.WriteLine(x);
+
+                    writer.WriteLine(x);
+
+                } while (numeri[j] != '*');
+
+                Console.WriteLine($"Salvati sul file {fileout}");
             }
             catch (Exception ex)
             {
